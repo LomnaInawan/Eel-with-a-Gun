@@ -17,6 +17,8 @@ public class eel : MonoBehaviour
     public float Lives = 3;
     public int score = 0;
 
+    public GameObject gameEndScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,8 @@ public class eel : MonoBehaviour
             livesText.text = "Lives : " + Lives.ToString();
             if (Lives <= 0)
             {
+                gameEndScreen.SetActive(true);
+                Destroy(gameObject);
                 Debug.Log("Game End");
             }
             StartCoroutine("flashSprite");

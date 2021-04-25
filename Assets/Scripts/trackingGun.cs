@@ -11,7 +11,6 @@ public class trackingGun : MonoBehaviour
 
     public float DestroIn;
     public Transform gun;
-    public float speed;
     public GameObject prefabBullet;
     public float timeBetweenShots;
     public Transform gunpoint;
@@ -19,7 +18,6 @@ public class trackingGun : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, DestroIn);
         StartCoroutine("attack");
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -29,7 +27,7 @@ public class trackingGun : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(timeBetweenShots);
-            Instantiate(prefabBullet, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = (direction / direction.magnitude) * gunSpeed; 
+            Instantiate(prefabBullet, transform.position, Quaternion.Euler(0,0,angle)).GetComponent<Rigidbody2D>().velocity = (direction / direction.magnitude) * gunSpeed; 
         }
     }
 
@@ -52,7 +50,6 @@ public class trackingGun : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector2(transform.position.x + speed, transform.position.y + speed);
         direction = new Vector2(player.position.x - this.transform.position.x, player.position.y - this.transform.position.y);
         if(direction.x == 0 && direction.y > 0)
         {

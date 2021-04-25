@@ -7,15 +7,16 @@ public class Gun : MonoBehaviour
     public Transform spawnPos;
     public GameObject bulletPrefab;
     public float TimeBetweenShots;
+    
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         StartCoroutine("shooting");
     }
 
     IEnumerator shooting()
     {
-        while (true){
+        while (true && this.enabled == true){
             yield return new WaitForSeconds(TimeBetweenShots);
             Instantiate(bulletPrefab, spawnPos.position,Quaternion.identity);
             this.GetComponent<AudioSource>().Play();
